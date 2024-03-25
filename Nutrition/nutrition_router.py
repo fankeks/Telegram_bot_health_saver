@@ -4,6 +4,7 @@ from aiogram.dispatcher import FSMContext
 
 from Nutrition.nutrition_states import NutritionStates
 from Main.main_keyboard.inline_menu_kb import inline_menu_kb
+from Main.main_keyboard.menu_kb import menu_kb
 
 
 async def cmd_nutrition(callback: CallbackQuery):
@@ -14,7 +15,8 @@ async def cmd_nutrition(callback: CallbackQuery):
 async def cmd_menu(message: Message, state: FSMContext):
     await state.finish()
     await message.answer('Возврат в главное меню без сохранения результатов ввода')
-    await message.answer('Выберите функцию', reply_markup=inline_menu_kb)
+    await message.answer('Выберите функцию', reply_markup=menu_kb)
+    await message.answer('Функции:', reply_markup=inline_menu_kb)
     await message.delete()
 
 
@@ -36,8 +38,8 @@ async def cmd_get_weight(message: Message, state: FSMContext):
     async with state.proxy() as data:
         data['weight'] = message.text
     await state.finish()
-    ans = f'Ваш возраст:{data["age"]}\nВаш пол:{data["gender"]}\nВаш вес:{data["weight"]}\nНужна формула для расчёта КБЖУ'
-    await message.answer(ans)
+    ans = f'Ваш возраст: {data["age"]}\nВаш пол: {data["gender"]}\nВаш вес: {data["weight"]}\nНужна формула для расчёта КБЖУ'
+    await message.answer(ans, reply_markup=menu_kb)
 
 
 def register_nutrition_router(dp: Dispatcher):
