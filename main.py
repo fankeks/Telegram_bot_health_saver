@@ -18,7 +18,7 @@ if ans:
 
 
 async def on_startup(_):
-    data.start()
+    await data.start()
     bot_commands = [
         BotCommand(command="/menu", description="Меню"),
     ]
@@ -28,7 +28,6 @@ async def on_startup(_):
 
 
 async def on_shutdown(_):
-    data.close()
     await storage.close()
     await (await bot.get_session()).close()
 

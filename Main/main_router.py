@@ -8,7 +8,7 @@ from Data_base.DataBase import data
 
 
 async def cmd_start(message: Message):
-    data.add_user(message.from_user.id)
+    await data.add_user(message.from_user.id)
     await message.answer('Добро пожаловать!')
     await message.answer('Заполните профиль для корректной работы.')
     await message.answer('Выберите функцию', reply_markup=menu_kb)

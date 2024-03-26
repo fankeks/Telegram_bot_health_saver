@@ -16,9 +16,9 @@ def calculate(gender, age, height, weight, activity):
 
 
 async def cmd_nutrition(callback: CallbackQuery):
-    gender = data.get_value('gender', callback.from_user.id)
-    age = data.get_value('age', callback.from_user.id)
-    height = data.get_value('height', callback.from_user.id)
+    gender = await data.get_value('gender', callback.from_user.id)
+    age = await data.get_value('age', callback.from_user.id)
+    height = await data.get_value('height', callback.from_user.id)
     if (gender is None) or (age is None) or (height is None):
         await callback.message.answer('Профиль не заполнен')
     else:
@@ -38,7 +38,7 @@ async def cmd_get_weight(message: Message, state: FSMContext):
     async with state.proxy() as d:
         try:
             value = float(message.text)
-            data.set_value('weight', message.from_user.id, value)
+            await data.set_value('weight', message.from_user.id, value)
             d['weight'] = value
             await NutritionStates.next()
             await message.answer("Выберите ваш уровень активности:", reply_markup=inline_activity_kb)
@@ -51,11 +51,11 @@ async def cmd_get_activity_1(callback: CallbackQuery, state: FSMContext):
     async with state.proxy() as d:
         weight = d['weight']
     await state.finish()
-    gender = data.get_value('gender', callback.from_user.id)
-    age = data.get_value('age', callback.from_user.id)
-    height = data.get_value('height', callback.from_user.id)
+    gender = await data.get_value('gender', callback.from_user.id)
+    age = await data.get_value('age', callback.from_user.id)
+    height = await data.get_value('height', callback.from_user.id)
     activity = 1.2
-    data.set_value('activity', callback.from_user.id, activity)
+    await data.set_value('activity', callback.from_user.id, activity)
     cal = calculate(gender, age, height, weight, activity)
     await callback.message.answer(f'КБЖУ: {cal}', reply_markup=menu_kb)
 
@@ -64,11 +64,11 @@ async def cmd_get_activity_2(callback: CallbackQuery, state: FSMContext):
     async with state.proxy() as d:
         weight = d['weight']
     await state.finish()
-    gender = data.get_value('gender', callback.from_user.id)
-    age = data.get_value('age', callback.from_user.id)
-    height = data.get_value('height', callback.from_user.id)
+    gender = await data.get_value('gender', callback.from_user.id)
+    age = await data.get_value('age', callback.from_user.id)
+    height = await data.get_value('height', callback.from_user.id)
     activity = 1.38
-    data.set_value('activity', callback.from_user.id, activity)
+    await data.set_value('activity', callback.from_user.id, activity)
     cal = calculate(gender, age, height, weight, activity)
     await callback.message.answer(f'КБЖУ: {cal}', reply_markup=menu_kb)
 
@@ -77,11 +77,11 @@ async def cmd_get_activity_3(callback: CallbackQuery, state: FSMContext):
     async with state.proxy() as d:
         weight = d['weight']
     await state.finish()
-    gender = data.get_value('gender', callback.from_user.id)
-    age = data.get_value('age', callback.from_user.id)
-    height = data.get_value('height', callback.from_user.id)
+    gender = await data.get_value('gender', callback.from_user.id)
+    age = await data.get_value('age', callback.from_user.id)
+    height = await data.get_value('height', callback.from_user.id)
     activity = 1.46
-    data.set_value('activity', callback.from_user.id, activity)
+    await data.set_value('activity', callback.from_user.id, activity)
     cal = calculate(gender, age, height, weight, activity)
     await callback.message.answer(f'КБЖУ: {cal}', reply_markup=menu_kb)
 
@@ -90,11 +90,11 @@ async def cmd_get_activity_4(callback: CallbackQuery, state: FSMContext):
     async with state.proxy() as d:
         weight = d['weight']
     await state.finish()
-    gender = data.get_value('gender', callback.from_user.id)
-    age = data.get_value('age', callback.from_user.id)
-    height = data.get_value('height', callback.from_user.id)
+    gender = await data.get_value('gender', callback.from_user.id)
+    age = await data.get_value('age', callback.from_user.id)
+    height = await data.get_value('height', callback.from_user.id)
     activity = 1.55
-    data.set_value('activity', callback.from_user.id, activity)
+    await data.set_value('activity', callback.from_user.id, activity)
     cal = calculate(gender, age, height, weight, activity)
     await callback.message.answer(f'КБЖУ: {cal}', reply_markup=menu_kb)
 
@@ -103,11 +103,11 @@ async def cmd_get_activity_5(callback: CallbackQuery, state: FSMContext):
     async with state.proxy() as d:
         weight = d['weight']
     await state.finish()
-    gender = data.get_value('gender', callback.from_user.id)
-    age = data.get_value('age', callback.from_user.id)
-    height = data.get_value('height', callback.from_user.id)
+    gender = await data.get_value('gender', callback.from_user.id)
+    age = await data.get_value('age', callback.from_user.id)
+    height = await data.get_value('height', callback.from_user.id)
     activity = 1.64
-    data.set_value('activity', callback.from_user.id, activity)
+    await data.set_value('activity', callback.from_user.id, activity)
     cal = calculate(gender, age, height, weight, activity)
     await callback.message.answer(f'КБЖУ: {cal}', reply_markup=menu_kb)
 
@@ -116,11 +116,11 @@ async def cmd_get_activity_6(callback: CallbackQuery, state: FSMContext):
     async with state.proxy() as d:
         weight = d['weight']
     await state.finish()
-    gender = data.get_value('gender', callback.from_user.id)
-    age = data.get_value('age', callback.from_user.id)
-    height = data.get_value('height', callback.from_user.id)
+    gender = await data.get_value('gender', callback.from_user.id)
+    age = await data.get_value('age', callback.from_user.id)
+    height = await data.get_value('height', callback.from_user.id)
     activity = 1.73
-    data.set_value('activity', callback.from_user.id, activity)
+    await data.set_value('activity', callback.from_user.id, activity)
     cal = calculate(gender, age, height, weight, activity)
     await callback.message.answer(f'КБЖУ: {cal}', reply_markup=menu_kb)
 
@@ -129,11 +129,11 @@ async def cmd_get_activity_7(callback: CallbackQuery, state: FSMContext):
     async with state.proxy() as d:
         weight = d['weight']
     await state.finish()
-    gender = data.get_value('gender', callback.from_user.id)
-    age = data.get_value('age', callback.from_user.id)
-    height = data.get_value('height', callback.from_user.id)
+    gender = await data.get_value('gender', callback.from_user.id)
+    age = await data.get_value('age', callback.from_user.id)
+    height = await data.get_value('height', callback.from_user.id)
     activity = 1.9
-    data.set_value('activity', callback.from_user.id, activity)
+    await data.set_value('activity', callback.from_user.id, activity)
     cal = calculate(gender, age, height, weight, activity)
     await callback.message.answer(f'КБЖУ: {cal}', reply_markup=menu_kb)
 

@@ -1,4 +1,4 @@
-import sqlite3 as sq
+import aiosqlite
 
 
 class DataBase:
@@ -13,15 +13,11 @@ class DataBase:
     def __init__(self, path):
         if self.__init is None:
             self.__path = path
-            self.__cur = None
-            self.__con = None
-            self.__keys = None
+            self.__keys = ['user_id', 'gender', 'age', 'height', 'weight', 'activity']
 
-    def start(self):
-        if self.__con is None:
-            self.__con = sq.connect(self.__path)
-            self.__cur = self.__con.cursor()
-            self.__cur.execute('''CREATE TABLE IF NOT EXISTS users (
+    async def start(self):
+        async with aiosqlite.connect(self.__path) as cur:
+            await cur.execute('''CREATE TABLE IF NOT EXISTS users (
                 user_id TEXT NOT NULL PRIMARY KEY,
                 gender TEXT,
                 age FLOAT,
@@ -29,38 +25,38 @@ class DataBase:
                 weight FLOAT,
                 activity FLOAT
                 )''')
-            self.__con.commit()
-            self.__keys = ['user_id', 'gender', 'age', 'height', 'weight', 'activity']
+            await cur.commit()
 
     @property
     def keys(self):
         return self.__keys
 
-    def get_value(self, name, user_id):
+    async def get_value(self, name, user_id):
         try:
-            value = self.__cur.execute(f"SELECT {name} FROM users WHERE user_id == '" + str(user_id) + "'").fetchall()[0][0]
-            return value
+            async with aiosqlite.connect(self.__path) as cur:
+                value = await cur.execute(f"SELECT {name} FROM users WHERE user_id == '" + str(user_id) + "'")
+                value = await value.fetchall()
+                return value[0][0]
         except:
             return None
 
-    def add_user(self, user_id):
+    async def add_user(self, user_id):
         try:
-            self.__cur.execute('INSERT INTO users (user_id) VALUES (?)', (user_id,))
-            self.__con.commit()
+            async with aiosqlite.connect(self.__path) as cur:
+                await cur.execute('INSERT INTO users (user_id) VALUES (?)', (user_id,))
+                await cur.commit()
             return True
         except:
             return False
 
-    def set_value(self, name, user_id, value):
+    async def set_value(self, name, user_id, value):
         try:
-            self.__cur.execute(f'UPDATE users SET {name} = ? WHERE user_id = ?', (f"{value}", user_id))
-            self.__con.commit()
+            async with aiosqlite.connect(self.__path) as cur:
+                await cur.execute(f'UPDATE users SET {name} = ? WHERE user_id = ?', (f"{value}", user_id))
+                await cur.commit()
             return True
         except:
             return False
-
-    def close(self):
-        self.__con.close()
 
 
 data = DataBase("C://Users//Hp//Desktop//PyCharm//telegram_bots//Telegram_bot_health_saver//Data_base//bot_db.db")

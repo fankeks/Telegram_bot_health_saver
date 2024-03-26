@@ -11,16 +11,16 @@ from Main.main_keyboard.menu_kb import menu_kb
 
 
 async def cmd_profile(callback: CallbackQuery):
-    data.add_user(callback.from_user.id)
-    gender = data.get_value('gender', callback.from_user.id)
+    await data.add_user(callback.from_user.id)
+    gender = await data.get_value('gender', callback.from_user.id)
     if gender is None:
         gender = 'Не заполнено'
 
-    age = data.get_value('age', callback.from_user.id)
+    age = await data.get_value('age', callback.from_user.id)
     if age is None:
         age = 'Не заполнено'
 
-    height = data.get_value('height', callback.from_user.id)
+    height = await data.get_value('height', callback.from_user.id)
     if height is None:
         height = 'Не заполнено'
 
@@ -36,12 +36,12 @@ async def cmd_change_gender(callback: CallbackQuery):
 
 
 async def cmd_change_gender_male(callback: CallbackQuery):
-    data.set_value('gender', callback.from_user.id, 'Мужской')
+    await data.set_value('gender', callback.from_user.id, 'Мужской')
     await callback.message.answer('Ваш пол: Мужской')
 
 
 async def cmd_change_gender_female(callback: CallbackQuery):
-    data.set_value('gender', callback.from_user.id, 'Женский')
+    await data.set_value('gender', callback.from_user.id, 'Женский')
     await callback.message.answer('Ваш пол: Женский')
 
 
@@ -53,7 +53,7 @@ async def cmd_change_age(callback: CallbackQuery):
 async def cmd_set_age(message: Message, state: FSMContext):
     try:
         value = float(message.text)
-        data.set_value('age', message.from_user.id, value)
+        await data.set_value('age', message.from_user.id, value)
         await message.answer(f"Ваш возраст: {value}")
         await state.finish()
     except:
@@ -69,7 +69,7 @@ async def cmd_change_height(callback: CallbackQuery):
 async def cmd_set_height(message: Message, state: FSMContext):
     try:
         value = float(message.text)
-        data.set_value('height', message.from_user.id, value)
+        await data.set_value('height', message.from_user.id, value)
         await message.answer(f"Ваш рост: {value}")
         await state.finish()
     except:
