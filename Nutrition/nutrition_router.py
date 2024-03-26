@@ -11,8 +11,8 @@ from Nutrition.nutrition_keyboard.inline_activity_kb import inline_activity_kb
 
 def calculate(gender, age, height, weight, activity):
     if gender == 'Мужской':
-        return (weight * 10 + height * 6.25 - age * 5 + 5) * activity
-    return (weight * 10 + height * 6.25 - age * 5 - 161) * activity
+        return round((weight * 10 + height * 6.25 - age * 5 + 5) * activity)
+    return round((weight * 10 + height * 6.25 - age * 5 - 161) * activity)
 
 
 async def cmd_nutrition(callback: CallbackQuery):

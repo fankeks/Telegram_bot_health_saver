@@ -59,4 +59,4 @@ class DataBase:
             return False
 
 
-data = DataBase("C://Users//Hp//Desktop//PyCharm//telegram_bots//Telegram_bot_health_saver//Data_base//bot_db.db")
+data = DataBase("Data_base//bot_db.db")
