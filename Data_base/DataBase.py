@@ -13,7 +13,7 @@ class DataBase:
     def __init__(self, path):
         if self.__init is None:
             self.__path = path
-            self.__keys = ['user_id', 'gender', 'age', 'height', 'weight', 'activity']
+            self.__keys = ['user_id', 'gender', 'age', 'height', 'weight', 'target']
 
     async def start(self):
         async with aiosqlite.connect(self.__path) as cur:
@@ -23,7 +23,7 @@ class DataBase:
                 age FLOAT,
                 height FLOAT,
                 weight FLOAT,
-                activity FLOAT
+                target FLOAT
                 )''')
             await cur.commit()
 
