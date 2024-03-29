@@ -1,0 +1,8 @@
+opencv_python
+torch
+scikit-learn
+mediapipe
+msvc-runtime
+ultralytics
+aiogram==2.25
+aiosqlite

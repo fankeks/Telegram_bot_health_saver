@@ -22,3 +22,7 @@ class BotCreator:
         storage = MemoryStorage()
         dp = Dispatcher(bot, storage=storage)
         return bot, dp, storage
+
+
+creator = BotCreator('Token')
+ans = creator.create()
